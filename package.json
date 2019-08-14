@@ -1,0 +1,35 @@
+{
+  "name": "svelte-deep-store",
+  "version": "1.0.0",
+  "description": "Svelte deep store - react only when specified property of the object was changed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neuronetio/svelte-deep-store.git"
+  },
+  "keywords": [
+    "svelte",
+    "deep",
+    "store",
+    "observer",
+    "subscribe",
+    "svelte",
+    "deep",
+    "store",
+    "svelte",
+    "deep",
+    "observer",
+    "svelte",
+    "deep",
+    "subscribe"
+  ],
+  "author": "neuronet.io@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neuronetio/svelte-deep-store/issues"
+  },
+  "homepage": "https://github.com/neuronetio/svelte-deep-store#readme"
+}
