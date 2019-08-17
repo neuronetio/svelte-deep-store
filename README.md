@@ -31,6 +31,24 @@ onDestroy(
     }
   })
 );
+
+state.update('someOther.nested', (currentValue) => {
+  return 'new value';
+});
+
+onDestroy(
+  state.subscribe('some', (value) => {
+    state.update('someOther.nested', (oldValue) => {
+      return 'nested changed after some changed';
+    });
+  })
+);
+
+let currentState = state.get();
+console.log(currentState.some);
+
+onDestroy(state.destroy);
 ```
 
 There are also `watch` and `watchAll` methods instead of `subscribe` and `subscribeAll` which do the same thing.
+And `set` is equivalent of `update`;
