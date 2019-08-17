@@ -1,6 +1,6 @@
 {
   "name": "svelte-deep-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Svelte deep store - react only when specified property of the object was changed.",
   "main": "index.js",
   "scripts": {
