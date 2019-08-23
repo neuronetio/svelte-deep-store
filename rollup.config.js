@@ -1,6 +1,21 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript';
 export default [
+  {
+    input: 'index.ts',
+    output: {
+      file: 'index.js',
+      format: 'esm'
+    },
+    plugins: [
+      typescript({ target: 'es6' }),
+      resolve({
+        browser: true
+      }),
+      commonjs()
+    ]
+  },
   {
     input: 'index.js',
     output: {
