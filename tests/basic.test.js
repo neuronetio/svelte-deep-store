@@ -61,48 +61,4 @@ describe('Store', () => {
     expect(paths).toEqual(['x', 'y', 'z.xyz']);
     state.destroy();
   });
-
-  it('should attach differences', () => {
-    let state1Count = 0;
-    const state1Str = 'state1 rulez!';
-    const state1 = new Store({ state1: state1Str, nested: { state: 'ok' } });
-    state1.subscribe('state1', (value, diff) => {
-      if (state1Count === 0) {
-        expect(value).toEqual(state1Str);
-        expect(diff).toEqual([]);
-      } else if (state1Count === 1) {
-        if (!diff) {
-          console.log(`'${value} ${diff}'`);
-        }
-        expect(value).toEqual('test');
-        expect(diff.length).toEqual(1);
-        expect(diff[0].kind).toEqual('E');
-        expect(diff[0].lhs).toEqual(state1Str);
-        expect(diff[0].rhs).toEqual('test');
-      }
-      state1Count++;
-    });
-    state1.update('state1', () => 'test');
-    expect(state1Count).toEqual(2);
-    let count2 = 0;
-    state1.subscribe('', (state, diff) => {
-      if (count2 === 0) {
-        expect(state.nested.state).toEqual('ok');
-        expect(diff.length).toEqual(0);
-      } else {
-        expect(state.nested.state).toEqual('updated');
-        expect(diff.length).toEqual(1);
-        expect(diff[0].kind).toEqual('E');
-        expect(diff[0].path).toEqual(['nested', 'state']);
-        expect(diff[0].lhs).toEqual('ok');
-        expect(diff[0].rhs).toEqual('updated');
-      }
-      count2++;
-    });
-    state1.update((data) => {
-      data.nested.state = 'updated';
-      return data;
-    });
-    expect(count2).toEqual(2);
-  });
 });

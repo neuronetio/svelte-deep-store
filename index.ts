@@ -1,8 +1,7 @@
 import { path, set, view, lensPath, equals } from 'ramda';
-import diff from 'deep-diff';
 import clone from 'fast-copy';
 
-export type Listener = (value: any, differences: any) => {};
+export type Listener = (value: any) => {};
 export type ListenerAll = (valueOrPath: any, value: any | undefined) => {};
 export type Updater = (value: any) => {};
 
@@ -62,7 +61,7 @@ export default class Store {
       pathSplit = [];
     }
     if (execute) {
-      fn(path(pathSplit, this.data), []);
+      fn(path(pathSplit, this.data));
     }
     return this.unsubscribe(fn);
   }
@@ -102,10 +101,6 @@ export default class Store {
     const lens = lensPath(this.stringToArray(userPath));
     let oldValue = clone(view(lens, this.data));
     let newValue = fn(view(lens, this.data));
-    let differences = diff(oldValue, newValue);
-    if (typeof differences === 'undefined') {
-      differences = [];
-    }
     this.data = set(lens, newValue, this.data);
     for (const currentPath in this.listeners) {
       if (
@@ -114,7 +109,7 @@ export default class Store {
       ) {
         let currentPathSplit = this.stringToArray(currentPath);
         for (const listener of this.listeners[currentPath]) {
-          listener(path(currentPathSplit, this.data), differences);
+          listener(path(currentPathSplit, this.data));
         }
       }
     }
@@ -131,7 +126,7 @@ export default class Store {
     return path(userPath.split('.'), this.data);
   }
 
-  static diff(newValue, oldValue) {
-    return diff(newValue, oldValue);
+  static clone(obj) {
+    return clone(obj);
   }
 }

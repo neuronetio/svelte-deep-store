@@ -36,7 +36,6 @@
   },
   "homepage": "https://github.com/neuronetio/svelte-deep-store#readme",
   "dependencies": {
-    "deep-diff": "^1.0.2",
     "fast-copy": "^2.0.3",
     "ramda": "^0.26.1"
   },
