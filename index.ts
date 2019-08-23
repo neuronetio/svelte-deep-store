@@ -1,5 +1,6 @@
 import { path, set, view, lensPath, equals } from 'ramda';
 import diff from 'deep-diff';
+import clone from 'fast-copy';
 
 export type Listener = (value: any, differences: any) => {};
 export type ListenerAll = (valueOrPath: any, value: any | undefined) => {};
@@ -99,7 +100,7 @@ export default class Store {
       userPath = '';
     }
     const lens = lensPath(this.stringToArray(userPath));
-    const oldValue = JSON.parse(JSON.stringify(view(lens, this.data)));
+    let oldValue = clone(view(lens, this.data));
     let newValue = fn(view(lens, this.data));
     let differences = diff(oldValue, newValue);
     if (typeof differences === 'undefined') {
@@ -130,7 +131,7 @@ export default class Store {
     return path(userPath.split('.'), this.data);
   }
 
-  diff(newValue, oldValue) {
+  static diff(newValue, oldValue) {
     return diff(newValue, oldValue);
   }
 }
