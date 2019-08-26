@@ -61,4 +61,12 @@ describe('Store', () => {
     expect(paths).toEqual(['x', 'y', 'z.xyz']);
     state.destroy();
   });
+
+  it('should accept value instead of function inside update', () => {
+    const state = new Store({ x: 10, y: 20, z: { xyz: 50 } });
+    expect(state.get()).toEqual({ x: 10, y: 20, z: { xyz: 50 } });
+    state.update('z.xyz', 'string instead of fn');
+    expect(state.get('z.xyz')).toEqual('string instead of fn');
+    state.destroy();
+  });
 });

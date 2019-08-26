@@ -1329,7 +1329,13 @@
           }
           const lens = lensPath(this.stringToArray(userPath));
           let oldValue = fastCopy(view(lens, this.data));
-          let newValue = fn(view(lens, this.data));
+          let newValue;
+          if (typeof fn === 'function') {
+              newValue = fn(view(lens, this.data));
+          }
+          else {
+              newValue = fn;
+          }
           this.data = set(lens, newValue, this.data);
           for (const currentPath in this.listeners) {
               if (userPath.substr(0, currentPath.length) === currentPath ||
