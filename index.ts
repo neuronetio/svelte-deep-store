@@ -106,7 +106,10 @@ export default class Store {
     } else {
       newValue = fn;
     }
-    if (oldValue === newValue) {
+    if (
+      (['number', 'string', 'undefined', 'boolean'].includes(typeof newValue) || newValue === null) &&
+      oldValue === newValue
+    ) {
       return newValue;
     }
     this.data = set(lens, newValue, this.data);
