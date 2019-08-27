@@ -1330,6 +1330,9 @@ class Store {
         else {
             newValue = fn;
         }
+        if (oldValue === newValue) {
+            return newValue;
+        }
         this.data = set(lens, newValue, this.data);
         for (const currentPath in this.listeners) {
             if (userPath.substr(0, currentPath.length) === currentPath ||
@@ -1340,6 +1343,7 @@ class Store {
                 }
             }
         }
+        return newValue;
     }
     set(userPath, fn) {
         return this.update(userPath, fn);
